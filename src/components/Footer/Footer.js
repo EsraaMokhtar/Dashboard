@@ -3,6 +3,7 @@ import  style  from './Footer.module.css';
 
 const Footer = () => {
 
+    // footer
     return (
         <div>
             <footer className={`${style.footer}  text-center text-lg-start fixed-bottom`}>

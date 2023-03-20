@@ -12,6 +12,7 @@ import logo from '../../image/main-logo.svg';
 
 function FixedNavbar(){
 
+  // Navbar
 
 return(
 

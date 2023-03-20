@@ -8,6 +8,7 @@ import '../../index.css'
 
 function SideBar(){
 
+    // sidebar
     const [isActive, setActive] = useState("false");
 
     const ToggleClass = () => {

@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 function CreateContest(props) {
 
+    // create contest
     const [name, setName] = useState('');
     const [comments, setComments] = useState('');
     const [text, setText] = useState('');

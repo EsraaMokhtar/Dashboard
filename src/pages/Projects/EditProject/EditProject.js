@@ -8,13 +8,12 @@ import { useState } from 'react';
 
 function EditProject(props) {
 
+    // edit project
     const [name, setName] = useState('');
     const [comments, setComments] = useState('');
     const [text, setText] = useState('');
     const [type, setType] = useState('');
     const [price, setPrice] = useState('');
-
-
 
     function showAlert(message) {
         Swal.fire({

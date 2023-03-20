@@ -5,7 +5,7 @@ import style from './Dashboard.module.css';
 
 function Dashboard(){
 
-
+// dashboard
 return(
     <>
         <SideBar />

@@ -15,6 +15,7 @@ function App() {
 
   return (
     <>
+    {/* Routing */}
       <Navbar />
         <Routes>
           <Route exact path="/" element={<Dashboard/>} />
