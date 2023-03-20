@@ -1,0 +1,243 @@
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.side-bar {
+  position: fixed;
+  top: auto;
+  left: auto;
+  bottom: 0;
+  right: 0;
+  z-index: 105;
+  height: calc(100vh - 56px);
+  background: #1dbf73 !important;
+  direction: rtl;
+}
+
+
+.header__navbar ul li a {
+  display: block;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 25px 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.102);
+}
+
+/* .header__navbar ul li a:hover{
+  color: #1dbf73 !important;
+} */
+
+@media screen and (max-width: 991px) {
+  .side-bar {
+      left: -250px;
+  }
+  
+}
+
+.side-bar .side-bar__btn-toggler {
+  position: absolute;
+  top: 45px;
+  right: -45px;
+  bottom: auto;
+  left: auto;
+  border: none;
+  border-radius: 0;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: radial-gradient(circle, rgb(38, 50, 56) 0%, rgb(38, 50, 56)  0%, rgb(38, 50, 56)  90%) !important;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  display: none;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.side-bar .side-bar__btn-toggler i{
+  font-size: 20px;
+  color: white;
+  opacity: 1;
+  text-align: center;
+  text-shadow: none;
+  transition: all 0.3s ease-in-out;
+}
+
+
+
+.side-bar > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--background-dark);
+  width: 230px;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: all 0.2s ease-in-out;
+  padding-bottom: 30px;
+  height: 100%;
+}
+
+.side-bar > div::-webkit-scrollbar {
+  display: none;
+}
+
+.side-bar > div .side-bar__items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+
+.side-bar > div .side-bar__items .side-bar__item {
+  width: 100%;
+  padding: 3px 0;
+}
+
+.side-bar > div .side-bar__items .side-bar__item a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+  position: relative;
+  text-decoration: none;
+}
+
+.side-bar > div .side-bar__items .side-bar__item a .side-bar__item--icon {
+  width: 40px;
+  height: 40px;
+}
+
+.side-bar > div .side-bar__items .side-bar__item a .side-bar__item--text {
+  opacity: 0;
+  transition: all 0.2s ease-out;
+  margin-left: 15px;
+  white-space: nowrap;
+}
+
+
+
+.side-bar > div hr {
+  background-color: var(--bkg-clr-grad-one);
+}
+
+.side-bar > div a.terms {
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+
+
+.side-bar > div a.terms:hover {
+  color: var(--prim-main-txt-clr);
+}
+
+@media screen and (min-width: 768px) {
+  /* .side-bar > div:hover {
+      width: 260px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+  } */
+
+ 
+
+  .side-bar > div:hover .side-bar__item a .side-bar__item--text {
+      opacity: 1;
+  }
+}
+
+.side-bar.opened {
+  height: 100vh;
+  margin-top: 65px;
+  top: 0;
+  left: 0;
+}
+
+
+.side-bar.opened .side-bar__btn-toggler {
+  right: 6px;
+  border-radius: 5px;
+}
+.admin-side-bar.opened .side-bar__btn-toggler {
+  right: 30px;
+  border-radius: 5px;
+}
+
+html[dir='rtl'] .side-bar.opened .side-bar__btn-toggler {
+  right: auto;
+  left: 30px;
+  border-radius: 5px;
+}
+
+.side-bar.opened .side-bar__btn-toggler .open {
+  display: none;
+}
+.admin-side-bar.opened .side-bar__btn-toggler .open {
+  display: none;
+}
+
+.side-bar.opened .side-bar__btn-toggler .close {
+  display: block;
+  margin-right: 2px;
+  margin-top: -2px;
+}
+.admin-side-bar.opened .side-bar__btn-toggler .close {
+  display: block;
+  margin-right: 2px;
+  margin-top: -2px;
+}
+
+html[dir='rtl'] .side-bar.opened .side-bar__btn-toggler .close {
+  margin-top: 1px;
+  margin-right: 2px;
+  margin-left: auto;
+}
+
+.side-bar.opened > div {
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 150px;
+}
+.admin-side-bar.opened > div {
+  width: 100%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 150px;
+}
+
+.side-bar.opened > div .side-bar__item a .side-bar__item--text {
+  opacity: 1;
+}
+
+.header__navbar{
+  display:block;
+}
+
+.header__navbar ul li a:hover {
+  color: #ffffff;
+}
+.header__navbar a{
+  text-decoration: none !important;
+}
+.header__navbar ul li:last-child a {
+  border-right: none !important;
+}
+.header__navbar ul li a{
+  font-size: 18px !important;
+}
