@@ -2,68 +2,42 @@
 import * as React from 'react';
 import SideBar from '../../../components/SideBar/SideBar';
 import style from './EditContest.module.css';
-import axios from 'axios';
-import Swal from "sweetalert2";
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { db } from '../../../Firebase/Firebase';
+import { collection, addDoc} from "firebase/firestore";
 
-function EditContest(props) {
+function EditContest() {
 
 // edit Contest
-    const [name, setName] = useState('');
-    const [comments, setComments] = useState('');
-    const [text, setText] = useState('');
-    const [type, setType] = useState('');
-    const [price, setPrice] = useState('');
+   
+const navigate = useNavigate();
 
-    function showAlert(message) {
-        Swal.fire({
-            title: message,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1000
-        });
+const { id } = useParams();
+
+console.log(id);
+
+const [name, setName] = useState('');
+// const [comments, setComments] = useState('');
+const [text, setText] = useState('');
+const [type, setType] = useState('');
+const [price, setPrice] = useState('');
+
+
+const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const docRef = await addDoc(collection(db, "contests"), {name,text,type,price});
+        console.log("Document written with ID: ", docRef.id);
+        navigate("/contest");
+    } catch (e) {
+        console.error("Error adding document: ", e);
     }
 
-    function showError(message) {
-        Swal.fire({
-            title: message,
-            icon: "error",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
-
-
-
-    async function sendData(e) {
-
-        e.preventDefault();
-
-            // await axios.post(``,
-            // { name : name , comments : comments , text : text , type: type, price : price })
-            // .then(response => {
-            //     console.log("res", response)
-                // if ('success' in response.data) {
-                //     let message = response.data.success;
-                //     showAlert(message, 'success');
-                //     e.target.reset();
-
-                //     let createGrade = document.getElementById("create_grade");
-                //     createGrade.classList.add("d-none");
-
-                // } else if ('error' in response.data) {
-                //     let error = response.data.error;
-                //     showAlert(error, 'error');
-                // }
-
-            // }).catch(error => {
-            //     console.log(error);
-
-            // });
-    }
-
-
-
+    e.target.reset();
+  };
 
 
     return (
@@ -72,14 +46,18 @@ function EditContest(props) {
             <div className={`${style.page_content}`}>
                 <div className='container-fluid'>
                     <div className="row justify-content-center mx-1 mb-5">
-
-                        <form onSubmit={sendData} className={`${style.create_accont}`}>
+                        <div className="col-lg-12 row my-4">
+                            <div className='col-sm-12 col-lg-6 p-0'>
+                                <h2 className=""> تعديل المسابقة </h2>
+                            </div>
+                        </div>
+                        <form onSubmit={handleFormSubmit} className={`${style.create_accont}`}>
                             <div className="row">
 
                                 <div className="col-xs-6 col-sm-6 col-md-6 mb-3">
                                     <div className="form-group">
                                         <strong>الاسم:</strong>
-                                        <input type="text" name="name" className="form-control"
+                                        <input type="text" className="form-control"
                                          onChange={(e) => { setName(e.target.value) }}
                                         placeholder="الاسم" />
                                     </div>
@@ -89,7 +67,7 @@ function EditContest(props) {
                                 <div className="col-xs-6 col-sm-6 col-md-6 mb-3">
                                     <div className="form-group">
                                         <strong>المسابقة:</strong>
-                                        <input type="text" name="text" className="form-control"
+                                        <input type="text" className="form-control"
                                          onChange={(e) => { setText(e.target.value) }}
                                         placeholder="المسابقة" />
                                     </div>
@@ -97,17 +75,8 @@ function EditContest(props) {
 
                                 <div className="col-xs-6 col-sm-6 col-md-6 mb-3">
                                     <div className="form-group">
-                                        <strong>التعليق:</strong>
-                                        <input type="text" name="comments" className="form-control"
-                                         onChange={(e) => { setComments(e.target.value) }}
-                                        placeholder="التعليق" />
-                                    </div>
-                                </div>
-
-                                <div className="col-xs-6 col-sm-6 col-md-6 mb-3">
-                                    <div className="form-group">
                                         <strong>النوع:</strong>
-                                        <input type="text" name="type" className="form-control"
+                                        <input type="text" className="form-control"
                                          onChange={(e) => { setType(e.target.value) }}
                                         placeholder="النوع" />
                                     </div>
@@ -116,8 +85,8 @@ function EditContest(props) {
                                 <div className="col-xs-6 col-sm-6 col-md-6 mb-3">
                                     <div className="form-group">
                                         <strong>السعر:</strong>
-                                        <input type="text" name="price" className="form-control"
-                                         onChange={(e) => { setPrice(e.target.value) }}
+                                        <input type="text" className="form-control"
+                                         onChange={(e) => { setPrice(Number(e.target.value)) }}
                                         placeholder="السعر" />
                                     </div>
                                 </div>

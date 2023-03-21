@@ -21,10 +21,10 @@ function App() {
           <Route exact path="/" element={<Dashboard/>} />
           <Route exact path="/dashboard" element={<Dashboard/>} />
           <Route exact path="/createContest" element={<CreateContest/>} />
-          <Route exact path="/editContest" element={<EditContest/>} />
+          <Route exact path="/contest/:id" element={<EditContest/>} />
           <Route exact path="/contest" element={<Contest/>} />
           <Route exact path="/createProject" element={<CreateProject/>} />
-          <Route exact path="/editProject" element={<EditProject/>} />
+          <Route exact path="/project/:id" element={<EditProject/>} />
           <Route exact path="/project" element={<Project/>} />
         </Routes>
       <Footer />

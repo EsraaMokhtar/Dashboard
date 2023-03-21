@@ -5,6 +5,8 @@ import style from './Contest.module.css';
 import { useState , useEffect } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { db , auth } from '../../../Firebase/Firebase';
+
 
 function Contest(){
 
@@ -12,18 +14,6 @@ function Contest(){
     const [contest, setContest] = useState([]);
     const [contestId, setContestId] = useState();
       
-    async function fetchData() {
-         
-        await axios.get('')
-        .then(response => {
-          console.log(response.data)
-        setContest(response.data);
-          
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      }
 
       function afterDelete(message , icon){
         Swal.fire({
@@ -45,7 +35,7 @@ function Contest(){
                 confirmButtonText: 'Yes, delete it!',
             }).then((result) => {
             if (result.isConfirmed) {
-                deleteData(id);
+                // deleteData(id);
             }
         })
     } 
@@ -59,7 +49,7 @@ function Contest(){
                 let index = contest.findIndex( ele => ele.id === id);
                 setContest(contest.splice(index,1));
           
-                fetchData();
+                // fetchData();
                 console.log(response)
                     
             } catch (error) {
@@ -72,10 +62,31 @@ function Contest(){
         }     
 
 
-    useEffect(() => {
-        fetchData();
-    },[]);
-    
+    const handleSubmit = async () => {
+        try {
+            await auth.signInWithEmailAndPassword("EsraaMokhtar2310@gmail.com", "Esraa#2310");
+        } catch (error) {
+            console.error(error);
+        }
+        fetchContests();
+      };
+
+    const fetchContests = async () => {
+        const user = auth.currentUser;
+        if (user) {
+            const data = await db.collection('contests').get();
+            setContest(data.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        }
+      
+    };
+
+    // useEffect(() => {
+       
+    //     fetchContests();
+
+    // });
+        
+   
       
     return(
     <>
@@ -88,9 +99,15 @@ function Contest(){
                         <h2 className="">المسابقات</h2>
                     </div>
                 </div>
+                 
             </div>
         </div>
         <div className="container-fluid">
+                <button className='btn btn-success' onClick={()=>{
+                        handleSubmit();
+                    }}>
+                    تسجيل
+                </button>
             <div className="row">
                 <div className="col-md-12">
                     <div className="table-responsive table-responsive-data2">
@@ -98,9 +115,10 @@ function Contest(){
                             <thead  className={`${style.thead }`}>
                             <tr>
                                 <th>#</th>
+                                <th>اسم المستخدم</th>
                                 <th>اسم المسابقة</th>
-                                <th>نوع المسابقة</th>
-                                <th></th>
+                                <th>تعديل</th>
+                                <th>حذف</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -111,25 +129,19 @@ function Contest(){
                                             <tr key={index} className={`${style.tr_shadow}`}>
                                                 <td>{index+1}</td>
                                                 <td>{contest.name}</td>
-                                                <td>{contest.type}</td>
+                                                <td>{contest.text}</td>
                                                 <td>
-                                                    <div className="table-data-feature">
-                                                        <Link className="item" type='button' to="/editContest" onClick={()=>{
-                                                                window.scrollTo(0, 0);
-                                                               setContestId(contest.id);
-                                                                }}>
-                                                            <i className={`fa-solid fa-pen  ${style.text_creat}`} ></i>
-                                                        </Link>
-
-                                                        <form>
-                                                            <Link type='button' className="item"
-                                                                    onClick={ () =>{
-                                                                        DeleteAlert(contest.id)  
-                                                                    }}>
-                                                                        <i className="fa-solid fa-trash text-danger"></i>
-                                                                </Link>
-                                                        </form>
-                                                    </div>
+                                                    <Link type='button' to={`/contest/${contest.id}`} >
+                                                        <i className={`fa-solid fa-pen text-muted fs-6`} ></i>
+                                                    </Link>
+                                                </td>
+                                                <td>
+                                                    <Link type='button'
+                                                        onClick={ () =>{
+                                                            DeleteAlert(contest.id)  
+                                                        }}>
+                                                        <i className="fa-solid fa-trash text-danger fs-6"></i>
+                                                    </Link>
                                                 </td>
                                             </tr>
                                             </>

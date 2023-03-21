@@ -29,7 +29,7 @@ function SideBar(){
                     <ul className="list-unstyled d-block w-100">
                         <li className="has-sub ">
                             <Link to="/">
-                                <i className="fas fa-tachometer-alt"></i>
+                                {/* <i className="fas fa-tachometer-alt"></i> */}
                                 المستخدمين
                                 <span className="bot-line"></span>
                             </Link>
@@ -41,7 +41,7 @@ function SideBar(){
                         </li>
                         <li className="has-sub ">
                             <Link  to="/contest">
-                                <i className="fas fa-tachometer-alt"></i>
+                                {/* <i className="fas fa-tachometer-alt"></i> */}
                                 المسابقات
                                 <span className="bot-line"></span>
                             </Link>
@@ -57,7 +57,7 @@ function SideBar(){
 
                         <li className="has-sub ">
                             <Link  to="/project">
-                                <i className="fas fa-tachometer-alt"></i>
+                                {/* <i className="fas fa-tachometer-alt"></i> */}
                                 المشاريع
                                 <span className="bot-line"></span>
                             </Link>
